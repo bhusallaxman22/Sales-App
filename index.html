@@ -1,0 +1,236 @@
+<!doctype HTML>
+<html>
+<head>
+<title>Sales App(online)</title >
+<style>
+body{
+    background: linear-gradient(to right, #009fff, #ec2f4b);
+}
+span{
+    text-align: center;
+    justify-content: center;
+}
+#root{
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    border-width: 5px;
+    height: auto;
+    padding: 4px;
+}
+
+#form {
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    background: pink;
+    height: auto;
+    
+}
+#cross{
+    float: right;
+    width:20px;
+    height: 20px;
+    background: gold;
+    color: red;
+    cursor: pointer;
+}
+#cross:hover{
+    background: red;
+    color: gold;
+}
+.tc{
+    justify-content: center;
+    text-align: center;
+}
+.grow{
+border-radius: 50px;
+}
+
+td, th {
+    border: 1px solid #4b4949;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #4e0c49;
+  }
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked+.slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  
+  /* Rounded sliders */
+  
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
+</style>
+</head>
+<body id="body">
+<label class="switch">
+<input class='nav-link' id="input" type="checkbox"
+onChange="toogleDarkMode()"
+ref="check" >
+<span class="slider round"></span>
+</label>
+<p id='dater'></p>
+<h1 class="tc">Sales</h1>
+<div id='root'></div>
+<form>
+<h2>New Sale<h2>
+<div id='form'>
+Name : <input id='Name' required='true'  type='text' true placeholder='Enter Name'><br >
+Phone No. : <input id='Phone' type='number' placeholder='Enter Contact' style='margin-top:8px' ><br >
+Product Purchased : <input id='Product' required='true' type='text' placeholder='Enter Product' style='margin-top:8px' > <br >
+Total Price : <input required='true' id = 'Price' type='number' placeholder='Enter Price' ><br>
+Date of Purchase : <input id='Date' required='true' type='date' ><br >
+<button onclick='handleSubmit(event)'>Add Sales</button>
+</div></form>
+<script type='text/javascript' >
+var root = document.getElementById("root")
+var date= new Date();
+document.getElementById("dater").innerHTML = date;
+var i = 0;
+
+function handleSubmit(event, callback) { 
+// event.preventDefault();
+var Product = document.getElementById("Product").value;
+var Name =document.getElementById("Name").value;
+var Phone = document.getElementById("Phone").value;
+var Price = document.getElementById("Price").value;
+var mated = document.getElementById("Date").value;
+var Dated = mated.toString();
+if (Product ==='') {
+    alert("Please Fill All Fields")
+} else {
+    var newArray = [
+       {
+            id: i++,
+            name: `${Name}`,
+            phone: `${Phone}`,
+            product: `${Product}`,
+           date: `${Dated}`,
+           price: `Rs. ${Price}`
+       }
+        
+    ]
+    var mello = document.createElement("span")
+    mello.innerHTML = `<p id='cross' onclick='handleClick()'>x</p><table><tr>
+            <th>Name</th>
+            <th>Contact</th>
+            <th>Total Price</th>
+            <th>Date</th>
+            <th>Product</th>
+          </tr>
+            <tr>
+                <td>${newArray[0].name}</td>
+                <td>${newArray[0].phone}</td>
+                <td>${newArray[0].price}</td>
+                <td>${newArray[0].date}</td>
+                <td>${newArray[0].product}</td>
+              </tr>
+          </table>`
+    // `<hr/><p id='cross' onclick='handleClick()'>x</p></div><ul style='list-style: none' key=${newArray[0].id}><li>Customer id : ${newArray[0].id}</li><li>Name : ${newArray[0].name}</li><li>Contact No. : ${newArray[0].phone}</li><li>Total Price : ${newArray[0].price}</li><li>Date : ${newArray[0].date}</li></li><li>Product : ${newArray[0].product}</li></ul>`
+    root.appendChild(mello);
+console.log(newArray[0]);
+localStorage.setItem("newArray", root.innerHTML);
+
+console.log((root.childNodes))
+root.style.display='';
+document.getElementById("Name").value='';
+document.getElementById("Phone").value='';
+document.getElementById("Product").value='';
+document.getElementById("Price").value='';
+document.getElementById("Date").value='';
+}
+}
+function handleClick(){
+    console.log(i)
+    i=i++
+    if(i=0) {
+    root.removeChild(root.childNodes[i]);
+    } else{
+        root.removeChild(root.childNodes[i])
+    }
+    localStorage.setItem("newArray", root.innerHTML);
+
+}
+
+var body = document.getElementsByTagName("body")
+window.onload = function() {myFunction()}
+function myFunction() {
+ var storedNames =localStorage.getItem("newArray");
+console.log("loaded", storedNames)
+if (storedNames==='[object NodeList]') {
+root.innerHTML=''
+} else {
+ root.innerHTML = storedNames;
+}
+}
+function toogleDarkMode(){
+    if (document.getElementById("input").checked) {
+document.getElementById("body").style.background = "#202020";
+document.getElementById("body").style.color = "white";
+document.getElementById("form").style.background="black"
+       
+           } else {
+            document.getElementById("body").style.background = " linear-gradient(to right, #009fff, #ec2f4b)";
+            document.getElementById("body").style.color = "black";
+            document.getElementById("form").style.background="pink"
+        }
+    }
+</script>
+</body>
+</html>
