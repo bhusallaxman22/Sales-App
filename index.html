@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Sales App(online)</title >
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 <style>
 body{
     background: linear-gradient(to right, #009fff, #ec2f4b);
@@ -58,7 +59,7 @@ td, th {
   }
 .switch {
     position: relative;
-    display: inline-block;
+    float: right;
     width: 60px;
     height: 34px;
   }
@@ -118,40 +119,36 @@ td, th {
   
 </style>
 </head>
-<body id="body">
-<label class="switch">
+<body id="body" onload="startTime()" >
+  <div class="br3 grow hover bw2 mt2 ml2" style="float: left;">
+  <a href="http://laxmanbhusalonline.top" ><img alt='home' style="border-radius: 50px;" height= 50px width=50px title="take me home" src="https://bhusallaxman22.github.io/bhusallaxman22.github.io/static/media/laxman.2c3aadff.jpg" /> </a></div>
+<label class="switch mt2 mr2">
 <input class='nav-link' id="input" type="checkbox"
 onChange="toogleDarkMode()"
 ref="check" >
 <span class="slider round"></span>
 </label>
-<p id='dater'></p>
+<p id='txt'></p>
 <h1 class="tc">Sales</h1>
 <div id='root'></div>
 <form>
-<h2>New Sale<h2>
+<p class="fw8 f4 tc dark-gray">New Sale</p>
 <div id='form'>
 Name : <input id='Name' required='true'  type='text' true placeholder='Enter Name'><br >
 Phone No. : <input id='Phone' type='number' placeholder='Enter Contact' style='margin-top:8px' ><br >
 Product Purchased : <input id='Product' required='true' type='text' placeholder='Enter Product' style='margin-top:8px' > <br >
 Total Price : <input required='true' id = 'Price' type='number' placeholder='Enter Price' ><br>
-Date of Purchase : <input id='Date' required='true' type='date' ><br >
-<button onclick='handleSubmit(event)'>Add Sales</button>
+<button class="f6 link grow ba bw1 ph3 pv2 mb2 dib green br3 mt2" onclick='handleSubmit(event)'>Add Sales</button>
 </div></form>
 <script type='text/javascript' >
 var root = document.getElementById("root")
-var date= new Date();
-document.getElementById("dater").innerHTML = date;
 var i = 0;
 
 function handleSubmit(event, callback) { 
-// event.preventDefault();
 var Product = document.getElementById("Product").value;
 var Name =document.getElementById("Name").value;
 var Phone = document.getElementById("Phone").value;
 var Price = document.getElementById("Price").value;
-var mated = document.getElementById("Date").value;
-var Dated = mated.toString();
 if (Product ==='') {
     alert("Please Fill All Fields")
 } else {
@@ -161,7 +158,7 @@ if (Product ==='') {
             name: `${Name}`,
             phone: `${Phone}`,
             product: `${Product}`,
-           date: `${Dated}`,
+           date: new Date().toDateString(),
            price: `Rs. ${Price}`
        }
         
@@ -182,18 +179,15 @@ if (Product ==='') {
                 <td>${newArray[0].product}</td>
               </tr>
           </table>`
-    // `<hr/><p id='cross' onclick='handleClick()'>x</p></div><ul style='list-style: none' key=${newArray[0].id}><li>Customer id : ${newArray[0].id}</li><li>Name : ${newArray[0].name}</li><li>Contact No. : ${newArray[0].phone}</li><li>Total Price : ${newArray[0].price}</li><li>Date : ${newArray[0].date}</li></li><li>Product : ${newArray[0].product}</li></ul>`
     root.appendChild(mello);
 console.log(newArray[0]);
 localStorage.setItem("newArray", root.innerHTML);
-
 console.log((root.childNodes))
 root.style.display='';
 document.getElementById("Name").value='';
 document.getElementById("Phone").value='';
 document.getElementById("Product").value='';
 document.getElementById("Price").value='';
-document.getElementById("Date").value='';
 }
 }
 function handleClick(){
@@ -211,10 +205,21 @@ function handleClick(){
 var body = document.getElementsByTagName("body")
 window.onload = function() {myFunction()}
 function myFunction() {
+  var today = new Date();
+  var y = today.toDateString();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  h = checkTime(h);
+  m = checkTime(m);
+  s = checkTime(s);
+  console.log( y + h + ":" + m + ":" + s)
+  document.getElementById('txt').innerHTML =
+  y + " " + h + ":" + m + ":" + s;
+  var t = setTimeout(myFunction, 500);
  var storedNames =localStorage.getItem("newArray");
-console.log("loaded", storedNames)
 if (storedNames==='[object NodeList]') {
-root.innerHTML=''
+root.innerHTML=' '
 } else {
  root.innerHTML = storedNames;
 }
@@ -230,6 +235,10 @@ document.getElementById("form").style.background="black"
             document.getElementById("body").style.color = "black";
             document.getElementById("form").style.background="pink"
         }
+    }
+    function checkTime(abc) {
+      if (abc < 10) {abc = "0" + abc};  // add zero in front of numbers < 10
+      return abc;
     }
 </script>
 </body>
