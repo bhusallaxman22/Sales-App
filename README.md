@@ -2,7 +2,7 @@
 I made it entirely on vanilla javascript.
 The app is also able to save previously entered data in localstorage but it save the whole `div`.
 
-##Whats working?
+<h2>Whats working?</h2>
 
 <ol>
   <li>Darkmode toogle.</li>
