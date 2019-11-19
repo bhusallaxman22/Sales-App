@@ -2,7 +2,9 @@
 <html>
 <head>
 <title>Sales App(online)</title >
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 body{
     background: linear-gradient(to right, #009fff, #ec2f4b);
@@ -131,14 +133,13 @@ ref="check" >
 <p id='txt'></p>
 <h1 class="tc">Sales</h1>
 <div id='root'></div>
-<form>
-<p class="fw8 f4 tc dark-gray">New Sale</p>
+<form class='form-inline tc'>
 <div id='form'>
-Name : <input id='Name' required='true'  type='text' true placeholder='Enter Name'><br >
-Phone No. : <input id='Phone' type='number' placeholder='Enter Contact' style='margin-top:8px' ><br >
-Product Purchased : <input id='Product' required='true' type='text' placeholder='Enter Product' style='margin-top:8px' > <br >
-Total Price : <input required='true' id = 'Price' type='number' placeholder='Enter Price' ><br>
-<button class="f6 link grow ba bw1 ph3 pv2 mb2 dib green br3 mt2" onclick='handleSubmit(event)'>Add Sales</button>
+Name : <input id='Name' class='form-control' type='text' true placeholder='Enter Name'><br >
+Phone No. : <input class='form-control' id='Phone' type='number' placeholder='Enter Contact' style='margin-top:8px' ><br >
+Product Purchased : <input class='form-control' id='Product' type='text' placeholder='Enter Product' style='margin-top:8px' > <br >
+Total Price : <input class='form-control' id = 'Price' type='number' placeholder='Enter Price' ><br>
+<button class="btn btn-primary f6 link grow ba bw1 ph3 pv2 mb2 dib br3 mt2"onclick='handleSubmit(event)'>Add Sales</button>
 </div></form>
 <script type='text/javascript' >
 var root = document.getElementById("root")
@@ -149,7 +150,7 @@ var Product = document.getElementById("Product").value;
 var Name =document.getElementById("Name").value;
 var Phone = document.getElementById("Phone").value;
 var Price = document.getElementById("Price").value;
-if (Product ==='') {
+if (Product ==='' || Name ==='' || Price==='') {
     alert("Please Fill All Fields")
 } else {
     var newArray = [
@@ -164,7 +165,7 @@ if (Product ==='') {
         
     ]
     var mello = document.createElement("span")
-    mello.innerHTML = `<p id='cross' onclick='handleClick()'>x</p><table><tr>
+    mello.innerHTML = `<p id='cross' onclick='handleClick()'>x</p><table class='tc'><tr>
             <th>Name</th>
             <th>Contact</th>
             <th>Total Price</th>
