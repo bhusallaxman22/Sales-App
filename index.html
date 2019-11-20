@@ -145,7 +145,8 @@ Total Price : <input class='form-control' id = 'Price' type='number' placeholder
 var root = document.getElementById("root")
 var i = 0;
 
-function handleSubmit(event, callback) { 
+function handleSubmit(event) { 
+event.preventDefault();
 var Product = document.getElementById("Product").value;
 var Name =document.getElementById("Name").value;
 var Phone = document.getElementById("Phone").value;
